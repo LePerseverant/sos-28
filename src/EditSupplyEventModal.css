@@ -28,24 +28,24 @@
 
 .ant-modal-footer {
   position: relative;
-
-  .ant-btn-primary,
-  .ant-btn-primary:hover,
-  .ant-btn-default,
-  .ant-btn-default:hover {
-    background-color: #000 !important;
-    border-color: #000 !important;
-    border-radius: 0 !important;
-    color: #fff !important;
-  }
-
-  .ant-btn-default,
-  .ant-btn-default:hover{
-    position: absolute;
-    left: 0;
-  }
+}
+.ant-modal-footer .ant-btn-primary,
+.ant-modal-footer .ant-btn-primary:hover,
+.ant-modal-footer .ant-btn-default,
+.ant-modal-footer .ant-btn-default:hover {
+  background-color: #000 !important;
+  border-color: #000 !important;
+  border-radius: 0 !important;
+  color: #fff !important;
+}
+.ant-modal-footer .ant-btn-default,
+.ant-modal-footer .ant-btn-default:hover {
+  position: absolute;
+  left: 0;
 }
 
 .to-span {
   margin: 0.5rem;
 }
+
+/*# sourceMappingURL=EditSupplyEventModal.css.map */

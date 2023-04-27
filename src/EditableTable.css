@@ -27,30 +27,98 @@
 
 .heading {
   position: relative;
+  margin: 1.5rem 0;
+}
+.heading ::before {
+  display: none !important;
+}
+.heading .twin-buttons {
+  width: 33rem;
+  background-color: #d9d9d9;
+  border: 0.0625rem solid #000;
+  border-radius: 0;
+  color: #000;
+}
+.heading .twin-buttons:hover {
+  background-color: gray;
+  color: #000;
+}
+.heading .twin-buttons:active {
+  background-color: gray;
+  color: #000;
+  font-weight: bold;
 }
 .heading .button {
   margin: auto 0;
   position: absolute;
-  top: 0;
   bottom: 0;
   right: 0;
   height: 2.5rem;
   width: 9rem;
   border-radius: 0;
   background-color: gray;
+  border-color: gray;
+  font-weight: bold;
+}
+.heading .button:hover {
+  background-color: #d9d9d9;
+  border-color: #d9d9d9;
 }
 
-.ant-table-tbody tr:nth-child(2n) {
+.ant-table-column-sorter-up,
+.ant-table-column-sorter-down {
+  font-size: 22px !important;
+}
+
+.ant-table .ant-table-cell {
+  padding: 0.5rem !important;
+}
+.ant-table .ant-table-thead tr :first-child {
+  border-start-start-radius: 0 !important;
+}
+.ant-table .ant-table-thead tr :last-child {
+  border-start-end-radius: 0 !important;
+}
+.ant-table .ant-table-thead tr th {
+  background-color: #fff !important;
+  border-inline-end: 1px solid #000 !important;
+  border-bottom: 1px solid #000 !important;
+}
+.ant-table .ant-table-tbody tr:nth-child(2n) {
   background-color: #f1fbff !important;
+}
+.ant-table .ant-table-tbody tr > td {
+  border-inline-end: 1px solid #000 !important;
+  border-bottom: 1px solid #000 !important;
+}
+
+.ant-table-wrapper table {
+  border-radius: 0 !important;
+  border-color: #000 !important;
+}
+
+.ant-table-container {
+  border-inline-start: 1px solid #000 !important;
 }
 
 .edit-delete {
+  margin-left: 2rem;
   color: #000;
   text-decoration: underline;
 }
 .edit-delete:hover {
   text-decoration: underline;
   color: #000;
+}
+
+.link {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.ant-table-container {
+  border-start-start-radius: 0 !important;
+  border-start-end-radius: 0 !important;
 }
 
 /*# sourceMappingURL=EditableTable.css.map */

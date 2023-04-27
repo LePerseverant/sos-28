@@ -1,4 +1,4 @@
-import type { SupplyEvent } from './EditableTable'
+import type { SupplyEvent } from "./types";
 
 export const dummyDataSource : SupplyEvent[] = [
   {

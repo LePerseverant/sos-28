@@ -1,32 +1,17 @@
 import React, { useContext, useEffect, useRef, useState } from "react"
-import type { InputRef } from "antd"
+import { InputRef, Space } from "antd"
 import { Button, Form, Input, Table } from "antd"
 import type { FormInstance } from "antd/es/form"
+import { SupplyEvent } from "./types"
+import columns from "./Columns"
+import { DataSourceContext, DataSourceContextProvider } from "./contexts"
 import "./EditableTable.css"
-import { dummyDataSource } from "./dummy-data"
-import { ColumnType } from "antd/es/table"
-import { ReactComponent as RedArrow } from "./assets/red-arrow-down.svg"
-import { ReactComponent as YellowArrow } from "./assets/yellow-arrow-down.svg"
-import EditSupplyEventModal from "./EditSupplyEventModal"
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null)
 
-type Impact = "Low" | "Medium" | "High"
-type Category = "Weather" | "Terminal Disruption" | "Arb"
-
-export interface SupplyEvent {
-  key: string
-  locationType: string
-  applicability: string
-  product: string
-  startDate: Date | string
-  endDate: Date | string
-  duration: number | string
-  impact: Impact
-  category: Category
-  comment: string
-}
-
+/*
+ * EDITABLE ROW COMPONENT
+ */
 interface EditableRowProps {
   index: number
 }
@@ -42,6 +27,9 @@ const EditableRow: React.FC<EditableRowProps> = ({ index, ...props }) => {
   )
 }
 
+/*
+ * EDITABLE CELL COMPONENT
+ */
 interface EditableCellProps {
   title: React.ReactNode
   editable: boolean
@@ -50,7 +38,6 @@ interface EditableCellProps {
   record: SupplyEvent
   handleSave: (record: SupplyEvent) => void
 }
-
 const EditableCell: React.FC<EditableCellProps> = ({
   title,
   editable,
@@ -116,120 +103,38 @@ const EditableCell: React.FC<EditableCellProps> = ({
   return <td {...restProps}>{childNode}</td>
 }
 
+type ColumnTypes = Exclude<EditableTableProps["columns"], undefined>
+/*
+ * EDITABLE TABLE COMPONENT
+ */
 type EditableTableProps = Parameters<typeof Table>[0]
 
-type ColumnTypes = Exclude<EditableTableProps["columns"], undefined>
-
 const EditableTable: React.FC = () => {
-  const [dataSource, setDataSource] = useState<SupplyEvent[]>(dummyDataSource)
-  const [count, setCount] = useState(2)
- 
+  const { value, setValue } = useContext(DataSourceContext)
+  console.log('data table', value.length)
+  
 
   // const handleDelete = (key: React.Key) => {
   //   const newData = dataSource.filter((item) => item.key !== key)
   //   setDataSource(newData)
   // }
 
-  const defaultColumns: (ColumnType<SupplyEvent> & { editable?: boolean })[] = [
-    {
-      title: "Location type",
-      dataIndex: "locationType",
-      editable: false,
-      sorter: (record_a: SupplyEvent, record_b: SupplyEvent) =>
-        parseInt(record_a.key) - parseInt(record_b.key),
-    },
-    {
-      title: "Applicability",
-      dataIndex: "applicability",
-      sorter: (record_a: SupplyEvent, record_b: SupplyEvent) =>
-        parseInt(record_a.key) - parseInt(record_b.key),
-    },
-    {
-      title: "PRODUCT",
-      dataIndex: "product",
-      sorter: (record_a: SupplyEvent, record_b: SupplyEvent) =>
-        parseInt(record_a.key) - parseInt(record_b.key),
-    },
-    {
-      title: "Start Date",
-      dataIndex: "startDate",
-      sorter: (record_a: SupplyEvent, record_b: SupplyEvent) =>
-        parseInt(record_a.key) - parseInt(record_b.key),
-    },
-    {
-      title: "End Date",
-      dataIndex: "endDate",
-      sorter: (record_a: SupplyEvent, record_b: SupplyEvent) =>
-        parseInt(record_a.key) - parseInt(record_b.key),
-    },
-    {
-      title: "DURATION (Days)",
-      dataIndex: "duration",
-      sorter: (record_a: SupplyEvent, record_b: SupplyEvent) =>
-        parseInt(record_a.key) - parseInt(record_b.key),
-      render: (_, record: SupplyEvent) => `${record.duration}`,
-    },
-    {
-      title: "IMPACT",
-      dataIndex: "impact",
-      sorter: (record_a: SupplyEvent, record_b: SupplyEvent) =>
-        parseInt(record_a.key) - parseInt(record_b.key),
-      render: (_, record: SupplyEvent) => (
-        <div className="flex space-between">
-          <p>{record.impact} </p>
-          {record.impact === "High" && <RedArrow width="64" height="64" />}
-          {record.impact === "Medium" && <YellowArrow width="64" height="64" />}
-        </div>
-      ),
-    },
-    {
-      title: "CATEGORY",
-      dataIndex: "category",
-      sorter: (record_a: SupplyEvent, record_b: SupplyEvent) =>
-        parseInt(record_a.key) - parseInt(record_b.key),
-    },
-    {
-      title: "COMMENTS",
-      dataIndex: "comment",
-      render: (_, record: SupplyEvent) => {
-        return (
-          <div className="flex space-between">
-            <p>{record.comment}</p>
-
-            <EditSupplyEventModal record={record} />
-          </div>
-        )
-      },
-    },
-  ]
-
-  const handleAdd = () => {
-    const newData: SupplyEvent = {
-      key: "1",
-      locationType: "Terminal",
-      applicability: "Flint Buckeye",
-      product: "All",
-      startDate: "3/5/2023",
-      endDate: "3/8/2023",
-      duration: "3",
-      impact: "Medium",
-      category: "Weather",
-      comment: "Winter storm, extremly low demand",
-    }
-    setDataSource([...dataSource, newData])
-    setCount(count + 1)
-  }
-
-  const handleSave = (row: SupplyEvent) => {
-    const newData = [...dataSource]
-    const index = newData.findIndex((item) => row.key === item.key)
-    const item = newData[index]
-    newData.splice(index, 1, {
-      ...item,
-      ...row,
-    })
-    setDataSource(newData)
-  }
+  // const handleAdd = () => {
+  //   const newData: SupplyEvent = {
+  //     key: "1",
+  //     locationType: "Terminal",
+  //     applicability: "Flint Buckeye",
+  //     product: "All",
+  //     startDate: "3/5/2023",
+  //     endDate: "3/8/2023",
+  //     duration: "3",
+  //     impact: "Medium",
+  //     category: "Weather",
+  //     comment: "Winter storm, extremly low demand",
+  //   }
+  //   setDataSource([...dataSource, newData])
+  //   setCount(count + 1)
+  // }
 
   const components = {
     body: {
@@ -237,22 +142,6 @@ const EditableTable: React.FC = () => {
       cell: EditableCell,
     },
   }
-
-  const columns = defaultColumns.map((col) => {
-    if (!col.editable) {
-      return col
-    }
-    return {
-      ...col,
-      onCell: (record: SupplyEvent) => ({
-        record,
-        editable: col.editable,
-        dataIndex: col.dataIndex,
-        title: col.title,
-        handleSave,
-      }),
-    }
-  })
 
   /*
    * TABLE HEADING
@@ -264,31 +153,51 @@ const EditableTable: React.FC = () => {
     <div className="heading flex space-between">
       <div>
         <h1>Supply Events ({month}):</h1>
-        <p>
-          <Button className="button" onClick={handleAdd} type="primary">
-            Add a row
+        <Space.Compact className="twin-buttons">
+          <Button
+            className="twin-buttons"
+            onClick={() => alert("not implemented!")}
+            type="primary"
+          >
+            Current Year Events
           </Button>
-          <Button className="button" onClick={handleAdd} type="primary">
-            Add a row
+          <Button
+            className="twin-buttons"
+            onClick={() => alert("not implemented!")}
+            type="primary"
+          >
+            Prior Year Events
           </Button>
-        </p>
+        </Space.Compact>
       </div>
-      <Button className="button" onClick={handleAdd} type="primary">
-        Add a row
+      <Button
+        className="button"
+        onClick={() => alert("not implemented!")}
+        type="primary"
+      >
+        Add Event
       </Button>
     </div>
   )
 
   return (
     <div>
-      <Heading month="March" />
-      <Table
-        components={components}
-        rowClassName={() => "editable-row"}
-        bordered
-        dataSource={dataSource}
-        columns={columns as ColumnTypes}
-      />
+      
+        <Heading month="March" />
+        <Table
+          components={components}
+          rowClassName={() => "editable-row"}
+          pagination={false}
+          bordered
+          dataSource={value}
+          columns={columns as ColumnTypes}
+          footer={() => (
+            <span className="link" onClick={() => alert("not implemented!")}>
+              See all deleted events
+            </span>
+          )}
+        />
+      
     </div>
   )
 }

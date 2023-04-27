@@ -1,6 +1,10 @@
-import React, { useState } from "react"
-import { Modal, Form, Input, Row, Checkbox } from "antd"
-import { SupplyEvent } from "./EditableTable"
+import React, { useContext, useState } from "react"
+import { Modal, Form, Input, Row, Checkbox, Col } from "antd"
+import { SupplyEvent } from "./types"
+import "./EditSupplyEventModal.css"
+import { DeleteOutlined } from "@ant-design/icons"
+import { DataSourceContext } from "./contexts"
+import * as _ from "lodash"
 
 interface EditSupplyEventModalProps {
   record: SupplyEvent
@@ -11,9 +15,16 @@ const EditSupplyEventModal: React.FC<EditSupplyEventModalProps> = ({
 }) => {
   const [form] = Form.useForm()
   const [visible, setVisible] = useState(false)
+  const { value, setValue } = useContext(DataSourceContext)
 
-  const handleCreate = (values: SupplyEvent & { terminal: string, locationSelection: string }): void => {
+  const handleCreate = (
+    values: SupplyEvent & { terminal: string; locationSelection: string }
+  ): void => {
     console.log("Received values of form: ", values)
+    const index = _.findIndex(value, record)
+    const updatedDataSource = [...value]
+    updatedDataSource.splice(index, 1, { ...record, ...values })
+    setValue(updatedDataSource)
     setVisible(false)
   }
 
@@ -21,7 +32,6 @@ const EditSupplyEventModal: React.FC<EditSupplyEventModalProps> = ({
     setVisible(false)
   }
   const showModal = (): void => {
-    alert(JSON.stringify(record))
     form.setFieldsValue({ ...record, terminal: record.locationType })
     setVisible(true)
   }
@@ -38,16 +48,22 @@ const EditSupplyEventModal: React.FC<EditSupplyEventModalProps> = ({
 
   return (
     <>
-    <p>
-              <a className="edit-delete" onClick={showModal}>
-                Edit/Delete {record.key}
-              </a>
-            </p>
+      <p>
+        <a className="edit-delete" onClick={showModal}>
+          Edit/Delete
+        </a>
+      </p>
       <Modal
+        width={700}
+        centered
+        closable={false}
         open={visible}
-        title="Create a new collection"
-        okText="Create"
-        cancelText="Cancel"
+        title="Edit Supply Event:"
+        okText="Submit"
+        cancelButtonProps={{
+          icon: <DeleteOutlined />,
+        }}
+        cancelText="Delete Event"
         onCancel={handleCancel}
         onOk={() => {
           form
@@ -62,50 +78,46 @@ const EditSupplyEventModal: React.FC<EditSupplyEventModalProps> = ({
         }}
       >
         <Form form={form}>
-          <Row justify="space-between">
+          <Row justify="start">
             <Form.Item name="terminal">
               <Input placeholder="Terminal" />
             </Form.Item>
             <Form.Item name="locationSelection">
-              <Input placeholder="Location selection" />
+              <Input placeholder="Location selection" disabled/>
             </Form.Item>
           </Row>
-          <Row>
+          <Row justify="start">
             <Form.Item name="startDate">
               <Input placeholder="Start Date" />
             </Form.Item>
-            <span>to</span>
+            <span className="to-span">to</span>
             <Form.Item name="endDate">
               <Input placeholder="End Date" />
             </Form.Item>
             <Form.Item
               name="annualEvent"
               valuePropName="checked"
-              wrapperCol={{ offset: 8, span: 16 }}
+              wrapperCol={{ offset: 10, span: 0 }} 
             >
-              <Checkbox>Annual Event</Checkbox>
+              <Checkbox disabled>Annual Event {record.key}</Checkbox>
             </Form.Item>
           </Row>
-          <Form.Item name="category">
-            <Input placeholder="Category" />
-          </Form.Item>
-          <Form.Item name="product">
-            <Input placeholder="Product Impacted" />
-          </Form.Item>
-          <Form.Item name="positive">
-            <Input placeholder="Positive" />
-          </Form.Item>
-          <Form.Item name="impact">
-            <Input placeholder="Impact" />
-          </Form.Item>
+          <Col className="modal-inputs">
+            <Form.Item name="category">
+              <Input placeholder="Category" />
+            </Form.Item>
+            <Form.Item name="product">
+              <Input placeholder="Product Impacted" />
+            </Form.Item>
+            <Form.Item name="positive">
+              <Input placeholder="Positive" disabled/>
+            </Form.Item>
+            <Form.Item name="impact">
+              <Input placeholder="Impact" />
+            </Form.Item>
+          </Col>
           <Form.Item name="comment">
             <Input.TextArea placeholder="Comment" />
-          </Form.Item>
-          <Form.Item>
-            <Input.TextArea
-              placeholder="Comment"
-              value={JSON.stringify(record)}
-            />
           </Form.Item>
         </Form>
       </Modal>
