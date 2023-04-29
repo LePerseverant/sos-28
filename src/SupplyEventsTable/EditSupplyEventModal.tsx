@@ -5,6 +5,7 @@ import "./EditSupplyEventModal.css"
 import { DeleteOutlined } from "@ant-design/icons"
 import { DataSourceContext } from "./contexts"
 import * as _ from "lodash"
+import CustomDatePicker from "./CustomDatePicker"
 
 interface EditSupplyEventModalProps {
   record: SupplyEvent
@@ -83,24 +84,20 @@ const EditSupplyEventModal: React.FC<EditSupplyEventModalProps> = ({
               <Input placeholder="Terminal" />
             </Form.Item>
             <Form.Item name="locationSelection">
-              <Input placeholder="Location selection" disabled/>
+              <Input placeholder="Location selection" disabled />
             </Form.Item>
           </Row>
           <Row justify="start">
-            <Form.Item name="startDate">
-              <Input placeholder="Start Date" />
+            <Form.Item name="annualEvent" >
+              <Checkbox className="checkbox">
+                Annual Event
+              </Checkbox>
             </Form.Item>
-            <span className="to-span">to</span>
-            <Form.Item name="endDate">
-              <Input placeholder="End Date" />
-            </Form.Item>
-            <Form.Item
-              name="annualEvent"
-              valuePropName="checked"
-              wrapperCol={{ offset: 10, span: 0 }} 
-            >
-              <Checkbox disabled>Annual Event {record.key}</Checkbox>
-            </Form.Item>
+            <Row className="date-pickers">
+              <CustomDatePicker name="startDate" />
+              <span className="to-span">to</span>
+              <CustomDatePicker name="endDate" />
+            </Row>
           </Row>
           <Col className="modal-inputs">
             <Form.Item name="category">
@@ -110,7 +107,7 @@ const EditSupplyEventModal: React.FC<EditSupplyEventModalProps> = ({
               <Input placeholder="Product Impacted" />
             </Form.Item>
             <Form.Item name="positive">
-              <Input placeholder="Positive" disabled/>
+              <Input placeholder="Positive" disabled />
             </Form.Item>
             <Form.Item name="impact">
               <Input placeholder="Impact" />

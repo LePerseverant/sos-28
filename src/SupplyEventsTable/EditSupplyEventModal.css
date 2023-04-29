@@ -1,0 +1,62 @@
+.ant-modal-content,
+.ant-input {
+  border: 0.0625rem solid #000 !important;
+  border-radius: 0 !important;
+}
+
+.ant-modal-header {
+  margin-bottom: 2rem !important;
+}
+
+.ant-modal-title {
+  font-weight: bold !important;
+  font-size: x-large !important;
+}
+
+.modal-inputs {
+  width: 16rem;
+}
+
+.ant-checkbox + span {
+  white-space: nowrap;
+}
+
+.ant-checkbox-inner {
+  border: 0.0625rem solid #000;
+  border-radius: 0 !important;
+}
+
+.ant-modal-footer {
+  position: relative;
+}
+.ant-modal-footer .ant-btn-primary,
+.ant-modal-footer .ant-btn-primary:hover,
+.ant-modal-footer .ant-btn-default,
+.ant-modal-footer .ant-btn-default:hover {
+  background-color: #000 !important;
+  border-color: #000 !important;
+  border-radius: 0 !important;
+  color: #fff !important;
+}
+.ant-modal-footer .ant-btn-default,
+.ant-modal-footer .ant-btn-default:hover {
+  position: absolute;
+  left: 0;
+}
+
+.to-span {
+  margin: 0.5rem;
+}
+
+.ant-picker {
+  color: rgba(0, 0, 0, 0.88);
+  border: 1px solid #000 !important;
+  border-radius: 0 !important;
+  height: 2rem !important;
+}
+
+.checkbox {
+  margin-right: 4rem;
+}
+
+/*# sourceMappingURL=EditSupplyEventModal.css.map */

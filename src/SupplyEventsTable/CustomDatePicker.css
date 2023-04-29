@@ -1,0 +1,28 @@
+.ant-picker-panel {
+  border-radius: 0 !important;
+  flex-direction: column-reverse !important;
+}
+.ant-picker-panel .ant-picker-date-panel {
+  font-size: large;
+  border: 0.0625rem solid #000 !important;
+}
+.ant-picker-panel .ant-picker-date-panel .ant-picker-header {
+  border-radius: 0 !important;
+  border-bottom: none !important;
+}
+.ant-picker-panel .ant-picker-date-panel .ant-picker-body {
+  border-radius: 0 !important;
+}
+.ant-picker-panel .ant-picker-date-panel .ant-picker-body .ant-picker-content {
+  table-layout: inherit !important;
+  border-collapse: collapse !important;
+}
+.ant-picker-panel .ant-picker-date-panel .ant-picker-footer {
+  display: none !important;
+}
+.ant-picker-panel .ant-picker-date-panel .ant-picker-footer-extra label {
+  width: 100% !important;
+  margin: auto !important;
+}
+
+/*# sourceMappingURL=CustomDatePicker.css.map */

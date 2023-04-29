@@ -1,5 +1,5 @@
-import EditableTable from "./EditableTable";
-import { DataSourceContextProvider } from "./contexts";
+import EditableTable from "./SupplyEventsTable/EditableTable";
+import { DataSourceContextProvider } from "./SupplyEventsTable/contexts";
 import "./App.css";
 
 function App() {

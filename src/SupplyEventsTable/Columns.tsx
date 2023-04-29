@@ -1,6 +1,6 @@
 import { ColumnType } from "antd/es/table"
-import { ReactComponent as RedArrow } from "./assets/red-arrow-down.svg"
-import { ReactComponent as YellowArrow } from "./assets/yellow-arrow-down.svg"
+import { ReactComponent as RedArrow } from "../assets/red-arrow-down.svg"
+import { ReactComponent as YellowArrow } from "../assets/yellow-arrow-down.svg"
 import EditSupplyEventModal from "./EditSupplyEventModal"
 import { SupplyEvent } from "./types"
 
