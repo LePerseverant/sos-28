@@ -30,6 +30,11 @@ const EditSupplyEventModal: React.FC<EditSupplyEventModalProps> = ({
   }
 
   const handleCancel = (): void => {
+    const index = _.findIndex(value, record)
+    const updatedDataSource = [...value]
+    updatedDataSource.splice(index, 1, { ...record, isDeleted: true })
+    setValue(updatedDataSource)
+    console.log(JSON.stringify(updatedDataSource))
     setVisible(false)
   }
   const showModal = (): void => {

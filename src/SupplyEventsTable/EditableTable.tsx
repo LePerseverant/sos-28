@@ -4,7 +4,7 @@ import { Button, Form, Input, Table } from "antd"
 import type { FormInstance } from "antd/es/form"
 import { SupplyEvent } from "./types"
 import columns from "./Columns"
-import { DataSourceContext, DataSourceContextProvider } from "./contexts"
+import { DataSourceContext } from "./contexts"
 import "./EditableTable.css"
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null)
@@ -111,6 +111,7 @@ type EditableTableProps = Parameters<typeof Table>[0]
 
 const EditableTable: React.FC = () => {
   const { value, setValue } = useContext(DataSourceContext)
+  const dataSource = value.filter(record => !record.isDeleted)
   console.log('data table', value.length)
   
 
@@ -189,7 +190,7 @@ const EditableTable: React.FC = () => {
           rowClassName={() => "editable-row"}
           pagination={false}
           bordered
-          dataSource={value}
+          dataSource={dataSource}
           columns={columns as ColumnTypes}
           footer={() => (
             <span className="link" onClick={() => alert("not implemented!")}>
