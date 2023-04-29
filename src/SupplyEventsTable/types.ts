@@ -13,5 +13,5 @@ export interface SupplyEvent {
   impact: Impact
   category: Category
   comment: string
-  isDeleted?: boolean
+  isDeleted: boolean
 }

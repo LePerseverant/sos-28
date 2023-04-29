@@ -91,6 +91,11 @@
   border-inline-end: 1px solid #000 !important;
   border-bottom: 1px solid #000 !important;
 }
+.ant-table .ant-table-footer {
+  border-radius: 0 !important;
+  border-color: #d9d9d9;
+  width: 100% !important;
+}
 
 .ant-table-wrapper table {
   border-radius: 0 !important;

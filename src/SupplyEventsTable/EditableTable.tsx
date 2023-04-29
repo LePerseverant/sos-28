@@ -111,9 +111,10 @@ type EditableTableProps = Parameters<typeof Table>[0]
 
 const EditableTable: React.FC = () => {
   const { value, setValue } = useContext(DataSourceContext)
-  const dataSource = value.filter(record => !record.isDeleted)
-  console.log('data table', value.length)
-  
+  const [showDeletedEvents, setShowDeletedEvents] = useState(false)
+  const dataSource = value.filter((record) => !record.isDeleted)
+  const deletedSupplyEvents = value.filter((record) => record.isDeleted === true)
+  const handleShowDeletedSupplyEvents = () => setShowDeletedEvents(prevState => !prevState) 
 
   // const handleDelete = (key: React.Key) => {
   //   const newData = dataSource.filter((item) => item.key !== key)
@@ -183,22 +184,30 @@ const EditableTable: React.FC = () => {
 
   return (
     <div>
-      
-        <Heading month="March" />
+      <Heading month="March" />
+      <Table
+        components={components}
+        rowClassName={() => "editable-row"}
+        pagination={false}
+        bordered
+        dataSource={dataSource}
+        columns={columns as ColumnTypes}
+        footer={() => (
+          <span className="link" onClick={handleShowDeletedSupplyEvents}>
+            {showDeletedEvents ? 'Hide all deleted events' : 'See all deleted events'}
+          </span>
+        )}
+      />
+      {showDeletedEvents && (
         <Table
           components={components}
           rowClassName={() => "editable-row"}
           pagination={false}
           bordered
-          dataSource={dataSource}
+          dataSource={deletedSupplyEvents}
           columns={columns as ColumnTypes}
-          footer={() => (
-            <span className="link" onClick={() => alert("not implemented!")}>
-              See all deleted events
-            </span>
-          )}
         />
-      
+      )}
     </div>
   )
 }
