@@ -1,6 +1,7 @@
 import { ColumnType } from "antd/es/table"
 import { ReactComponent as RedArrow } from "../assets/red-arrow-down.svg"
 import { ReactComponent as YellowArrow } from "../assets/yellow-arrow-down.svg"
+import { ReactComponent as GreenArrow } from "../assets/green-arrow-down.svg"
 import EditSupplyEventModal from "./EditSupplyEventModal"
 import { SupplyEvent } from "./types"
 
@@ -46,12 +47,13 @@ const defaultColumns: (ColumnType<SupplyEvent> & { editable?: boolean })[] = [
     title: "IMPACT",
     dataIndex: "impact",
     sorter: (record_a: SupplyEvent, record_b: SupplyEvent) =>
-      parseInt(record_a.key) - parseInt(record_b.key),
+      record_a.impact.localeCompare(record_b.impact),
     render: (_, record: SupplyEvent) => (
       <div className="flex space-between">
         <p>{record.impact} </p>
         {record.impact === "High" && <RedArrow width="32" height="32" />}
         {record.impact === "Medium" && <YellowArrow width="32" height="32" />}
+        {record.impact === "Low" && <GreenArrow width="32" height="32" />}
       </div>
     ),
   },

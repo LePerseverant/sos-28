@@ -1,6 +1,6 @@
-import type { SupplyEvent } from "./types";
+import type { SupplyEvent } from "./types"
 
-export const dummyDataSource : SupplyEvent[] = [
+export const dummyDataSource: SupplyEvent[] = [
   {
     key: "0",
     locationType: "Terminal",
@@ -12,6 +12,7 @@ export const dummyDataSource : SupplyEvent[] = [
     impact: "Medium",
     category: "Weather",
     comment: "Winter storm, extremly low demand",
+    isDeleted: false,
   },
   {
     key: "1",
@@ -24,9 +25,36 @@ export const dummyDataSource : SupplyEvent[] = [
     impact: "Medium",
     category: "Terminal Disruption",
     comment: "Terminal Down, customer shifted to KMI",
+    isDeleted: false,
   },
   {
     key: "2",
+    locationType: "Terminal",
+    applicability: "Flint Buckeye",
+    product: "All",
+    startDate: "3/5/2023",
+    endDate: "3/8/2023",
+    duration: "3",
+    impact: "Low",
+    category: "Weather",
+    comment: "Winter storm, extremly low demand",
+    isDeleted: false,
+  },
+  {
+    key: "3",
+    locationType: "Terminal",
+    applicability: "Carteret KMI",
+    product: "Diesel",
+    startDate: "3/5/2023",
+    endDate: "3/14/2023",
+    duration: "9",
+    impact: "Low",
+    category: "Terminal Disruption",
+    comment: "Terminal Down, customer shifted to KMI",
+    isDeleted: false,
+  },
+  {
+    key: "4",
     locationType: "Region",
     applicability: "Flint Buckeye",
     product: "Diesel",
@@ -36,9 +64,10 @@ export const dummyDataSource : SupplyEvent[] = [
     impact: "High",
     category: "Arb",
     comment: "NYH/Chi Arb open for full month, Oh demand shifted",
+    isDeleted: false,
   },
   {
-    key: "3",
+    key: "5",
     locationType: "Terminal",
     applicability: "Flint Buckeye",
     product: "Diesel",
@@ -48,5 +77,6 @@ export const dummyDataSource : SupplyEvent[] = [
     impact: "High",
     category: "Arb",
     comment: "NYH/Chi Arb open for full month, Oh demand shifted",
+    isDeleted: false,
   },
-];
+]
