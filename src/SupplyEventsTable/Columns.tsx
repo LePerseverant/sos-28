@@ -4,43 +4,40 @@ import { ReactComponent as YellowArrow } from "../assets/yellow-arrow-down.svg"
 import { ReactComponent as GreenArrow } from "../assets/green-arrow-down.svg"
 import EditSupplyEventModal from "./EditSupplyEventModal"
 import { SupplyEvent } from "./types"
+import { stringDateToMillis } from "./helpers"
 
 const defaultColumns: (ColumnType<SupplyEvent> & { editable?: boolean })[] = [
   {
     title: "Location type",
     dataIndex: "locationType",
-    sorter: (record_a: SupplyEvent, record_b: SupplyEvent) =>
-      parseInt(record_a.key) - parseInt(record_b.key),
+    sorter: (record_a: SupplyEvent, record_b: SupplyEvent) => 0,
   },
   {
     title: "Applicability",
     dataIndex: "applicability",
-    sorter: (record_a: SupplyEvent, record_b: SupplyEvent) =>
-      parseInt(record_a.key) - parseInt(record_b.key),
+    sorter: (record_a: SupplyEvent, record_b: SupplyEvent) => 0,
   },
   {
     title: "PRODUCT",
     dataIndex: "product",
-    sorter: (record_a: SupplyEvent, record_b: SupplyEvent) =>
-      parseInt(record_a.key) - parseInt(record_b.key),
+    sorter: (record_a: SupplyEvent, record_b: SupplyEvent) => 0,
   },
   {
     title: "Start Date",
     dataIndex: "startDate",
     sorter: (record_a: SupplyEvent, record_b: SupplyEvent) =>
-      parseInt(record_a.key) - parseInt(record_b.key),
+      stringDateToMillis(record_a.startDate as string) -
+      stringDateToMillis(record_b.startDate as string),
   },
   {
     title: "End Date",
     dataIndex: "endDate",
-    sorter: (record_a: SupplyEvent, record_b: SupplyEvent) =>
-      parseInt(record_a.key) - parseInt(record_b.key),
+    sorter: (record_a: SupplyEvent, record_b: SupplyEvent) => 0,
   },
   {
     title: "DURATION (Days)",
     dataIndex: "duration",
-    sorter: (record_a: SupplyEvent, record_b: SupplyEvent) =>
-      parseInt(record_a.key) - parseInt(record_b.key),
+    sorter: (record_a: SupplyEvent, record_b: SupplyEvent) => 0,
     render: (_, record: SupplyEvent) => `${record.duration}`,
   },
   {
@@ -60,8 +57,7 @@ const defaultColumns: (ColumnType<SupplyEvent> & { editable?: boolean })[] = [
   {
     title: "CATEGORY",
     dataIndex: "category",
-    sorter: (record_a: SupplyEvent, record_b: SupplyEvent) =>
-      parseInt(record_a.key) - parseInt(record_b.key),
+    sorter: (record_a: SupplyEvent, record_b: SupplyEvent) => 0,
   },
   {
     title: "COMMENTS",
