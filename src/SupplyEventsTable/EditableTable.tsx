@@ -6,6 +6,7 @@ import { SupplyEvent } from "./types"
 import columns from "./Columns"
 import { DataSourceContext } from "./contexts"
 import "./EditableTable.css"
+import AddSupplyEventModal from "./AddSupplyEventModal"
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null)
 
@@ -151,13 +152,7 @@ const EditableTable: React.FC = () => {
           </Button>
         </Space.Compact>
       </div>
-      <Button
-        className="button"
-        onClick={() => alert("not implemented!")}
-        type="primary"
-      >
-        Add Event
-      </Button>
+      <AddSupplyEventModal title="Add Supply Event:" />
     </div>
   )
 
