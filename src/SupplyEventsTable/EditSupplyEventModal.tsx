@@ -29,28 +29,31 @@ const EditSupplyEventModal: React.FC<EditSupplyEventModalProps> = ({
     setVisible(false)
   }
 
-  const handleCancel = (): void => {
+  const handleCancel = (): void => setVisible(false)
+
+  const showModal = (): void => {
+    form.setFieldsValue({ ...record, terminal: record.locationType })
+    setVisible(true)
+  }
+  const handleEdit = () => {
     const index = _.findIndex(value, record)
     const updatedDataSource = [...value]
     updatedDataSource.splice(index, 1, { ...record, isDeleted: true })
     setValue(updatedDataSource)
     console.log(JSON.stringify(updatedDataSource))
-    setVisible(false)
   }
-  const showModal = (): void => {
-    form.setFieldsValue({ ...record, terminal: record.locationType })
-    setVisible(true)
+
+  const handleOk = () => {
+    form
+      .validateFields()
+      .then((values) => {
+        form.resetFields()
+        handleCreate(values)
+      })
+      .catch((info) => {
+        console.log("Validate Failed:", info)
+      })
   }
-  /*
-   * MODAL FOOTER
-   */
-  // const Footer = (
-  //   <div>
-  //     <Button onClick={() => alert("not implemented")}>Cancel</Button>
-  //     <Button>Delete Event</Button>
-  //     <Button onClick={() => alert("not implemented")}>Submit</Button>
-  //   </div>
-  // )
 
   return (
     <>
@@ -65,23 +68,13 @@ const EditSupplyEventModal: React.FC<EditSupplyEventModalProps> = ({
         closable={false}
         open={visible}
         title="Edit Supply Event:"
-        okText="Submit"
-        cancelButtonProps={{
+        okText="Delete Event"
+        okButtonProps={{
           icon: <DeleteOutlined />,
         }}
-        cancelText="Delete Event"
-        onCancel={handleCancel}
-        onOk={() => {
-          form
-            .validateFields()
-            .then((values) => {
-              form.resetFields()
-              handleCreate(values)
-            })
-            .catch((info) => {
-              console.log("Validate Failed:", info)
-            })
-        }}
+        cancelText="Submit"
+        onCancel={handleOk}
+        onOk={handleEdit}
       >
         <Form form={form}>
           <Row justify="start">
@@ -93,10 +86,8 @@ const EditSupplyEventModal: React.FC<EditSupplyEventModalProps> = ({
             </Form.Item>
           </Row>
           <Row justify="start">
-            <Form.Item name="annualEvent" >
-              <Checkbox className="checkbox">
-                Annual Event
-              </Checkbox>
+            <Form.Item name="annualEvent">
+              <Checkbox className="checkbox">Annual Event</Checkbox>
             </Form.Item>
             <Row className="date-pickers">
               <CustomDatePicker name="startDate" />

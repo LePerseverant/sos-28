@@ -113,30 +113,9 @@ const EditableTable: React.FC = () => {
   const { value, setValue } = useContext(DataSourceContext)
   const [showDeletedEvents, setShowDeletedEvents] = useState(false)
   const dataSource = value.filter((record) => !record.isDeleted)
-  const deletedSupplyEvents = value.filter((record) => record.isDeleted === true)
-  const handleShowDeletedSupplyEvents = () => setShowDeletedEvents(prevState => !prevState) 
-
-  // const handleDelete = (key: React.Key) => {
-  //   const newData = dataSource.filter((item) => item.key !== key)
-  //   setDataSource(newData)
-  // }
-
-  // const handleAdd = () => {
-  //   const newData: SupplyEvent = {
-  //     key: "1",
-  //     locationType: "Terminal",
-  //     applicability: "Flint Buckeye",
-  //     product: "All",
-  //     startDate: "3/5/2023",
-  //     endDate: "3/8/2023",
-  //     duration: "3",
-  //     impact: "Medium",
-  //     category: "Weather",
-  //     comment: "Winter storm, extremly low demand",
-  //   }
-  //   setDataSource([...dataSource, newData])
-  //   setCount(count + 1)
-  // }
+  const deletedSupplyEvents = value.filter((record) => record.isDeleted)
+  const handleShowDeletedSupplyEvents = () =>
+    setShowDeletedEvents((prevState) => !prevState)
 
   const components = {
     body: {
@@ -194,7 +173,9 @@ const EditableTable: React.FC = () => {
         columns={columns as ColumnTypes}
         footer={() => (
           <span className="link" onClick={handleShowDeletedSupplyEvents}>
-            {showDeletedEvents ? 'Hide all deleted events' : 'See all deleted events'}
+            {showDeletedEvents
+              ? "Hide all deleted events"
+              : "See all deleted events"}
           </span>
         )}
       />
